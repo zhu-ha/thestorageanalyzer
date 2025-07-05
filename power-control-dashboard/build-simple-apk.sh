@@ -606,10 +606,16 @@ EOF
 
 # Initialize React Native project structure
 print_info "🏗️ Creating Android project..."
-npx @react-native-community/cli@latest init --skip-install
+npx @react-native-community/cli@latest init PowerControlTemp --skip-install
 
-# Copy the android directory from the init
-if [ ! -d "android" ]; then
+# Move the android directory from the created project
+if [ -d "PowerControlTemp/android" ]; then
+    print_info "📁 Moving Android project structure..."
+    mv PowerControlTemp/android ./
+    mv PowerControlTemp/ios ./ 2>/dev/null || true
+    rm -rf PowerControlTemp
+    print_success "✅ Android project structure created"
+else
     print_error "Failed to create Android project structure"
     exit 1
 fi
