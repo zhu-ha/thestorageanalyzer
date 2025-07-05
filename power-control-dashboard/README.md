@@ -29,10 +29,16 @@ A modern, Hyprland-style mobile dashboard for monitoring and controlling your Ar
 
 #### Install Dependencies
 ```bash
-# Install Python dependencies
-pip install flask flask-cors psutil
+# Easy installation for Arch Linux
+./install-arch-deps.sh
 
-# Ensure sudo access for power actions
+# OR manually install via pacman
+sudo pacman -S python python-psutil python-pip iproute2 net-tools
+
+# Install Flask (may need pip if not in repos)
+sudo pacman -S python-flask || pip install --user flask flask-cors
+
+# Configure sudo permissions for power actions
 sudo visudo
 # Add this line: yourusername ALL=(ALL) NOPASSWD: /usr/bin/systemctl poweroff, /usr/bin/systemctl reboot, /usr/bin/systemctl suspend, /usr/bin/systemctl hibernate
 ```
