@@ -50,16 +50,39 @@ sudo visudo
 
 ### 2. Mobile App Setup (Android)
 
-#### Build APK
+#### Install Node.js Dependencies
+```bash
+# Install Node.js and mobile development tools
+./setup-nodejs.sh
+
+# Restart terminal or run:
+source ~/.bashrc
+```
+
+#### Mobile App Options
+
+**Option 1: Quick Testing (Recommended)**
 ```bash
 ./build-apk.sh
+# Choose option 1 - Development server
+# Install "Expo Go" app on your phone
+# Scan QR code to test instantly
+```
+
+**Option 2: Build Actual APK**
+```bash
+./build-apk.sh
+# Choose option 2 - Cloud build
+# Create free account at expo.dev
+# Download APK when build completes
 ```
 
 #### Connect to Your Server
-1. Install the APK on your Android device
-2. Enter your laptop's IP address and port (e.g., `http://192.168.1.100:8888`)
-3. Enter the auth token displayed by the server
-4. Tap "Connect"
+1. Start the server: `./start-server.sh`
+2. Note the auth token and IP address shown
+3. Open the mobile app (Expo Go or installed APK)
+4. Enter your laptop's IP and the auth token
+5. Tap "Connect"
 
 ## 📊 System Requirements
 
@@ -95,12 +118,26 @@ sudo visudo
 
 ## 🚀 Quick Start
 
+### **Fastest Way to Test (5 minutes):**
 ```bash
-# Start the server
+# 1. Install dependencies
+./install-arch-deps.sh
+./setup-nodejs.sh
+
+# 2. Start the server
 ./start-server.sh
 
-# Build mobile app APK
+# 3. Test on phone (install "Expo Go" app first)
 ./build-apk.sh
+# Choose option 1, scan QR code with Expo Go
+```
+
+### **Build APK for Installation:**
+```bash
+# After quick test above works
+./build-apk.sh
+# Choose option 2, create free Expo account
+# Download APK from expo.dev when ready
 ```
 
 The mobile app displays **everything** in real-time:

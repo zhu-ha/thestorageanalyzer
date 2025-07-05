@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 Building Power Control Dashboard APK..."
+echo "🚀 Power Control Dashboard APK Build Setup for Arch Linux..."
 
 # Check if we're in the mobile-app directory
 if [ ! -f "package.json" ]; then
@@ -14,45 +14,91 @@ if [ ! -f "package.json" ]; then
     fi
 fi
 
-# Check if npm is installed
+# Check if Node.js/npm is installed
 if ! command -v npm &> /dev/null; then
     echo "❌ Error: npm is not installed!"
-    echo "Please install Node.js and npm first"
+    echo "📦 Installing Node.js on Arch Linux:"
+    echo "   sudo pacman -S nodejs npm"
     exit 1
 fi
 
-# Check if expo CLI is installed globally
-if ! command -v expo &> /dev/null; then
-    echo "📦 Installing Expo CLI globally..."
-    npm install -g @expo/cli
-fi
+echo "🏔️  Setting up for Arch Linux..."
 
-# Install dependencies
-echo "📦 Installing dependencies..."
+# Install npm packages locally to avoid permission issues
+echo "📦 Installing local development dependencies..."
 npm install
 
-# Check if EAS CLI is available (recommended for building)
-if command -v eas &> /dev/null; then
-    echo "🔧 Using EAS Build (recommended)..."
-    echo "🔑 Make sure you're logged in to Expo:"
-    echo "   expo login"
-    echo ""
-    echo "🏗️ Building APK with EAS..."
-    eas build --platform android --profile preview
+# Check if npx is available
+if ! command -v npx &> /dev/null; then
+    echo "❌ npx not found. Installing globally with proper permissions..."
+    # Use npm prefix to install in user directory
+    npm config set prefix ~/.local
+    export PATH="$HOME/.local/bin:$PATH"
+    npm install -g @expo/cli eas-cli
 else
-    echo "⚠️  EAS CLI not found, using classic build..."
-    echo "📦 Installing EAS CLI..."
-    npm install -g eas-cli
-    
-    echo "🔑 Please login to Expo account:"
-    expo login
-    
-    echo "🔧 Configuring EAS..."
-    eas build:configure
-    
-    echo "🏗️ Building APK..."
-    eas build --platform android --profile preview
+    echo "✅ npx available, using local packages"
 fi
+
+echo ""
+echo "📱 APK Build Options:"
+echo ""
+echo "🔄 Option 1: Local Development Server (Recommended for testing)"
+echo "   • Run: npx expo start"
+echo "   • Use Expo Go app on your phone to scan QR code"
+echo "   • No APK needed, instant testing"
+echo ""
+echo "🏗️  Option 2: Build APK via Expo Cloud (Requires account)"
+echo "   • Create free account at: https://expo.dev"
+echo "   • Run: npx expo login"
+echo "   • Run: npx eas build --platform android --profile preview"
+echo "   • Download APK from Expo dashboard"
+echo ""
+echo "📱 Option 3: Build APK Locally (Advanced)"
+echo "   • Install Android SDK and tools"
+echo "   • Run: npx expo run:android"
+echo "   • Requires Android development setup"
+echo ""
+echo "💡 Recommendation: Use Option 1 for immediate testing!"
+echo ""
+
+read -p "Which option would you like? (1=dev server, 2=cloud build, 3=local build, q=quit): " choice
+
+case $choice in
+    1)
+        echo "🚀 Starting development server..."
+        echo "� Install 'Expo Go' app on your phone and scan the QR code"
+        npx expo start
+        ;;
+    2)
+        echo "🔑 Setting up Expo cloud build..."
+        echo "📝 You'll need to create a free account at https://expo.dev"
+        echo ""
+        
+        if ! npx expo whoami &>/dev/null; then
+            echo "Please login to your Expo account:"
+            npx expo login
+        fi
+        
+        echo "🔧 Configuring build..."
+        npx eas build:configure 2>/dev/null || echo "Build already configured"
+        
+        echo "🏗️ Building APK (this will take 5-15 minutes)..."
+        npx eas build --platform android --profile preview
+        
+        echo ""
+        echo "✅ Build started! Check progress at: https://expo.dev"
+        echo "📱 You'll receive an email when the APK is ready for download"
+        ;;
+    3)
+        echo "🔧 Local build requires Android SDK setup..."
+        echo "📦 Install Android Studio or SDK tools first"
+        echo "🚀 Then run: npx expo run:android"
+        ;;
+    *)
+        echo "👋 Exiting..."
+        exit 0
+        ;;
+esac
 
 echo ""
 echo "✅ APK build started!"
