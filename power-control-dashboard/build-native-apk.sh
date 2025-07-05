@@ -52,9 +52,9 @@ if [ -d "$PROJECT_NAME" ]; then
     rm -rf "$PROJECT_NAME"
 fi
 
-# Initialize React Native project
+# Initialize React Native project using the modern CLI
 print_info "📱 Initializing React Native project..."
-npx react-native@latest init $PROJECT_NAME --version 0.72.6
+npx @react-native-community/cli@latest init $PROJECT_NAME --version 0.72.6
 
 cd $PROJECT_NAME
 
