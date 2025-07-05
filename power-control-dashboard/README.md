@@ -61,7 +61,17 @@ source ~/.bashrc
 
 #### Mobile App Options
 
-**Option 1: Quick Testing (Recommended)**
+**Option 1: Local APK Build with Gradle (Recommended)**
+```bash
+# Set up Android development environment
+./setup-android-build.sh
+
+# Build APK locally using React Native + Gradle
+./build-native-apk.sh
+# Creates: power-control-dashboard-YYYYMMDD-HHMM.apk
+```
+
+**Option 2: Quick Testing**
 ```bash
 ./build-apk.sh
 # Choose option 1 - Development server
@@ -69,7 +79,7 @@ source ~/.bashrc
 # Scan QR code to test instantly
 ```
 
-**Option 2: Build Actual APK**
+**Option 3: Cloud APK Build**
 ```bash
 ./build-apk.sh
 # Choose option 2 - Cloud build
@@ -98,6 +108,13 @@ source ~/.bashrc
 - **Network**: Same WiFi network as laptop
 - **Storage**: ~50MB for APK
 
+### Build Environment (For APK compilation)
+- **Android SDK**: Latest platform tools
+- **Java**: OpenJDK 8+
+- **Gradle**: For APK compilation
+- **Node.js**: 16+ for React Native
+- **RAM**: 4GB+ recommended for building
+
 ## 🎯 Key Features Implemented
 
 ### ✅ Complete System Monitoring
@@ -118,26 +135,30 @@ source ~/.bashrc
 
 ## 🚀 Quick Start
 
-### **Fastest Way to Test (5 minutes):**
+### **Local APK Build (Recommended):**
 ```bash
-# 1. Install dependencies
+# 1. Install all dependencies
 ./install-arch-deps.sh
-./setup-nodejs.sh
+./setup-android-build.sh
 
-# 2. Start the server
+# 2. Build APK locally with Gradle
+./build-native-apk.sh
+# Creates installable APK file in 10-15 minutes
+
+# 3. Start the server
 ./start-server.sh
 
-# 3. Test on phone (install "Expo Go" app first)
-./build-apk.sh
-# Choose option 1, scan QR code with Expo Go
+# 4. Install APK on your Android device
 ```
 
-### **Build APK for Installation:**
+### **Quick Testing (No APK needed):**
 ```bash
-# After quick test above works
+# 1. Install Node.js dependencies
+./setup-nodejs.sh
+
+# 2. Start development server
 ./build-apk.sh
-# Choose option 2, create free Expo account
-# Download APK from expo.dev when ready
+# Choose option 1, scan QR code with Expo Go app
 ```
 
 The mobile app displays **everything** in real-time:
