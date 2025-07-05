@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Storage Analyzer - Arch Edition
+Comment=Transparent Swift-style storage analyzer designed for Arch Linux
+Exec=storage_analyzer_arch_transparent
+Icon=storage-analyzer-arch
+Type=Application
+Categories=System;Monitor;Utility;ArchLinux;
+Keywords=storage;disk;directory;size;analyzer;space;arch;pacman;
+Terminal=false
+StartupNotify=true
+MimeType=inode/directory;
+Version=1.0.0
+X-AppImage-Version=1.0.0
+X-AppImage-Name=StorageAnalyzer-Arch
