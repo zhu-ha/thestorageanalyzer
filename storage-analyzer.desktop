@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Storage Analyzer
+Comment=Interactive directory size analyzer with modern Swift-style interface
+Exec=storage_analyzer_gui
+Icon=storage-analyzer
+Type=Application
+Categories=System;Monitor;Utility;
+Keywords=storage;disk;directory;size;analyzer;space;
+Terminal=false
+StartupNotify=true
+MimeType=inode/directory;
+Version=1.0

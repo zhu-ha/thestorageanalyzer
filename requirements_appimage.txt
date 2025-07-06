@@ -1,0 +1,19 @@
+# Storage Analyzer AppImage Requirements
+# The GUI version uses only standard library modules
+
+# Core Python standard library modules used:
+# - tkinter (GUI framework)
+# - os (filesystem operations)
+# - sys (system operations)
+# - threading (background scanning)
+# - time (timing operations)
+
+# System dependencies for AppImage build:
+# - python3
+# - python3-tk (tkinter)
+# - wget (for downloading appimagetool)
+# - imagemagick or inkscape (optional, for icon conversion)
+
+# No external Python packages required!
+# This application is designed to be self-contained using only
+# standard library modules to ensure maximum compatibility.

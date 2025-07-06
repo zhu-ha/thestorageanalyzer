@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Control Dashboard - {{ hostname }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hyprland-style.css') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#1e1e2e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <div id="app">
+        <!-- Header Bar -->
+        <header class="header-bar">
+            <div class="header-content">
+                <div class="system-info">
+                    <div class="hostname">{{ hostname }}</div>
+                    <div class="arch-badge">Arch Linux</div>
+                </div>
+                <div class="status-indicators">
+                    <div class="connection-status" id="connectionStatus">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Connecting...</span>
+                    </div>
+                    <div class="battery-indicator" id="batteryIndicator">
+                        <span class="battery-icon">🔋</span>
+                        <span class="battery-percent">--</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- System Stats Grid -->
+            <section class="stats-grid">
+                <div class="stat-card cpu-card">
+                    <div class="stat-header">
+                        <span class="stat-icon">🖥️</span>
+                        <span class="stat-title">CPU</span>
+                    </div>
+                    <div class="stat-content">
+                        <div class="progress-ring">
+                            <svg class="progress-ring-svg" width="80" height="80">
+                                <circle class="progress-ring-circle-bg" cx="40" cy="40" r="35"></circle>
+                                <circle class="progress-ring-circle" cx="40" cy="40" r="35" id="cpuProgress"></circle>
+                            </svg>
+                            <div class="progress-text" id="cpuPercent">--</div>
+                        </div>
+                        <div class="stat-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Cores:</span>
+                                <span class="detail-value" id="cpuCores">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Frequency:</span>
+                                <span class="detail-value" id="cpuFreq">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card memory-card">
+                    <div class="stat-header">
+                        <span class="stat-icon">💾</span>
+                        <span class="stat-title">Memory</span>
+                    </div>
+                    <div class="stat-content">
+                        <div class="progress-ring">
+                            <svg class="progress-ring-svg" width="80" height="80">
+                                <circle class="progress-ring-circle-bg" cx="40" cy="40" r="35"></circle>
+                                <circle class="progress-ring-circle" cx="40" cy="40" r="35" id="memoryProgress"></circle>
+                            </svg>
+                            <div class="progress-text" id="memoryPercent">--</div>
+                        </div>
+                        <div class="stat-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Used:</span>
+                                <span class="detail-value" id="memoryUsed">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Total:</span>
+                                <span class="detail-value" id="memoryTotal">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card disk-card">
+                    <div class="stat-header">
+                        <span class="stat-icon">💿</span>
+                        <span class="stat-title">Storage</span>
+                    </div>
+                    <div class="stat-content">
+                        <div class="progress-ring">
+                            <svg class="progress-ring-svg" width="80" height="80">
+                                <circle class="progress-ring-circle-bg" cx="40" cy="40" r="35"></circle>
+                                <circle class="progress-ring-circle" cx="40" cy="40" r="35" id="diskProgress"></circle>
+                            </svg>
+                            <div class="progress-text" id="diskPercent">--</div>
+                        </div>
+                        <div class="stat-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Used:</span>
+                                <span class="detail-value" id="diskUsed">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Free:</span>
+                                <span class="detail-value" id="diskFree">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card temp-card">
+                    <div class="stat-header">
+                        <span class="stat-icon">🌡️</span>
+                        <span class="stat-title">Temperature</span>
+                    </div>
+                    <div class="stat-content">
+                        <div class="temp-display">
+                            <div class="temp-value" id="tempValue">--°C</div>
+                            <div class="temp-status" id="tempStatus">Normal</div>
+                        </div>
+                        <div class="temp-bar">
+                            <div class="temp-progress" id="tempProgress"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Power Control Panel -->
+            <section class="power-panel">
+                <h2 class="panel-title">Power Control</h2>
+                <div class="power-grid">
+                    <button class="power-btn shutdown-btn" onclick="executePowerAction('shutdown')">
+                        <span class="power-icon">⏻</span>
+                        <span class="power-text">Shutdown</span>
+                    </button>
+                    <button class="power-btn reboot-btn" onclick="executePowerAction('reboot')">
+                        <span class="power-icon">🔄</span>
+                        <span class="power-text">Reboot</span>
+                    </button>
+                    <button class="power-btn suspend-btn" onclick="executePowerAction('suspend')">
+                        <span class="power-icon">💤</span>
+                        <span class="power-text">Suspend</span>
+                    </button>
+                    <button class="power-btn hibernate-btn" onclick="executePowerAction('hibernate')">
+                        <span class="power-icon">🛌</span>
+                        <span class="power-text">Hibernate</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Process Monitor -->
+            <section class="process-panel">
+                <h2 class="panel-title">Top Processes</h2>
+                <div class="process-list" id="processList">
+                    <div class="process-header">
+                        <div class="process-name">Process</div>
+                        <div class="process-cpu">CPU%</div>
+                        <div class="process-memory">Memory%</div>
+                    </div>
+                    <!-- Process items will be inserted here -->
+                </div>
+            </section>
+
+            <!-- System Info Panel -->
+            <section class="info-panel">
+                <h2 class="panel-title">System Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Uptime:</span>
+                        <span class="info-value" id="uptime">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Kernel:</span>
+                        <span class="info-value" id="kernel">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Desktop:</span>
+                        <span class="info-value" id="desktop">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Session:</span>
+                        <span class="info-value" id="session">--</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Auth Modal -->
+        <div class="modal" id="authModal">
+            <div class="modal-content">
+                <h2>Authentication Required</h2>
+                <p>Enter the authentication token to access the dashboard:</p>
+                <input type="password" id="authToken" placeholder="Authentication Token" />
+                <div class="modal-buttons">
+                    <button onclick="authenticate()" class="btn-primary">Connect</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Connecting to system...</div>
+        </div>
+
+        <!-- Notification System -->
+        <div class="notification-container" id="notifications"></div>
+    </div>
+
+    <script>
+        // Global variables
+        const AUTH_TOKEN = '{{ auth_token }}';
+        let currentToken = localStorage.getItem('powerControlToken') || '';
+        let isAuthenticated = false;
+        let updateInterval;
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            if (currentToken) {
+                verifyAuthentication();
+            } else {
+                showAuthModal();
+            }
+        });
+    </script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

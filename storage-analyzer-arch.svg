@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background with Arch blue gradient -->
+  <defs>
+    <radialGradient id="archGradient" cx="50%" cy="30%">
+      <stop offset="0%" style="stop-color:#1793d1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f2835;stop-opacity:1" />
+    </radialGradient>
+    <linearGradient id="glassEffect" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3" />
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.05" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Main background circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#archGradient)" stroke="#1793d1" stroke-width="8"/>
+  
+  <!-- Glass overlay effect -->
+  <circle cx="256" cy="256" r="230" fill="url(#glassEffect)"/>
+  
+  <!-- Arch Linux inspired mountain/peak (stylized) -->
+  <path d="M 256 80 L 180 200 L 200 200 L 256 120 L 312 200 L 332 200 Z" 
+        fill="white" opacity="0.9"/>
+  <path d="M 256 120 L 220 180 L 235 180 L 256 150 L 277 180 L 292 180 Z" 
+        fill="#1793d1" opacity="0.7"/>
+  
+  <!-- Storage/Drive representation -->
+  <rect x="120" y="240" width="272" height="140" rx="20" fill="white" opacity="0.95"/>
+  <rect x="130" y="250" width="252" height="25" rx="8" fill="#1793d1"/>
+  <rect x="130" y="285" width="252" height="25" rx="8" fill="#34c759"/>
+  <rect x="130" y="320" width="252" height="25" rx="8" fill="#ff9500"/>
+  <rect x="130" y="355" width="160" height="15" rx="4" fill="#8e8e93"/>
+  
+  <!-- Analytics/Chart bars -->
+  <rect x="160" y="400" width="20" height="50" fill="white" rx="4" opacity="0.9"/>
+  <rect x="190" y="410" width="20" height="40" fill="white" rx="4" opacity="0.9"/>
+  <rect x="220" y="395" width="20" height="55" fill="white" rx="4" opacity="0.9"/>
+  <rect x="250" y="405" width="20" height="45" fill="white" rx="4" opacity="0.9"/>
+  <rect x="280" y="390" width="20" height="60" fill="white" rx="4" opacity="0.9"/>
+  <rect x="310" y="400" width="20" height="50" fill="white" rx="4" opacity="0.9"/>
+  <rect x="340" y="395" width="20" height="55" fill="white" rx="4" opacity="0.9"/>
+  
+  <!-- Magnifying glass with transparency effect -->
+  <circle cx="380" cy="160" r="35" fill="none" stroke="white" stroke-width="8" opacity="0.9"/>
+  <circle cx="380" cy="160" r="20" fill="none" stroke="white" stroke-width="4" opacity="0.9"/>
+  <line x1="405" y1="185" x2="425" y2="205" stroke="white" stroke-width="8" 
+        stroke-linecap="round" opacity="0.9"/>
+  
+  <!-- Transparent overlay effect -->
+  <circle cx="256" cy="256" r="240" fill="none" stroke="white" stroke-width="2" opacity="0.3"/>
+  
+  <!-- Lightning bolt (Arch symbol interpretation) -->
+  <path d="M 400 300 L 380 340 L 390 340 L 375 380 L 395 340 L 385 340 L 400 300 Z" 
+        fill="white" opacity="0.8"/>
+</svg>
